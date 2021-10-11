@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Models;
+using Assignment1;
+
 
 namespace WebApplication2.Managers
 {
@@ -10,14 +12,14 @@ namespace WebApplication2.Managers
     {
         public static List<Book> _books = new List<Book>() 
         {
-            new Book("book1", "me", 512, "123A"),
-            new Book("book2", "you", 520, "123B"),
-            new Book("book3", "he", 564, "123C")
+            new Book{Title="book1", Author="me", PageNumber=512, ISBN13="123A" },
+            new Book{Title="book2", Author="you", PageNumber=520, ISBN13="123B" },
+            new Book{Title="book3", Author="he", PageNumber=564, ISBN13="123C" }
         };
 
         public List<Book> GetAll()
         {
-            return new List<Book>(_books);
+            return _books;
         } 
 
     }

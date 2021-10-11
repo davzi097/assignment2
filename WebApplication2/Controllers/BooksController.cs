@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using WebApplication2.Managers;
+using Assignment1;
 
 
 
@@ -16,16 +17,17 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-
-        
-
-
+        BookManager booklist = new BookManager();
         private readonly BookContext _context;
 
         public BooksController(BookContext context)
         {
             _context = context;
-              
+            if (!_context.Book.Any())
+            {
+                _context.Book.AddRange(booklist.GetAll());
+                 _context.SaveChangesAsync();
+            }
         }
         
         
@@ -33,7 +35,7 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            
+           
             return await _context.Book.ToListAsync();
         }
 
@@ -85,7 +87,7 @@ namespace WebApplication2.Controllers
         // POST: api/Books
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
+        public async Task<ActionResult<IEnumerable<Book>>> PostBook(Book book)
         {
             _context.Book.Add(book);
             try
@@ -104,7 +106,7 @@ namespace WebApplication2.Controllers
                 }
             }
 
-            return CreatedAtAction(nameof(book), new { id = book.ISBN13 }, book);
+            return CreatedAtAction(nameof(GetBooks), new { id = book.ISBN13 }, book);
         }
 
         // DELETE: api/Books/5

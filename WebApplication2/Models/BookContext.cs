@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Assignment1;
 
 namespace WebApplication2.Models
 {
@@ -13,7 +14,7 @@ namespace WebApplication2.Models
         {
         }
 
-        public DbSet<Book> Book { get; set; }
+        public DbSet<Book>Book { get; set; }
     }
     
 }
